@@ -38,7 +38,7 @@ Note: for auth cookie to work, go on your browser `http://127.0.0.1:8080`
 
 - `EMAIL_HOST_ADDRESS`: ECSS associated email
 - `EMAIL_HOST_PASSWORD`: ECSS email's App password (if using Gmail, which is likely...)
-- `CIPHER_KEY`: base64 encoding for a cipher key, run `go run cmd/keygen` to generate one.
+- `CIPHER_KEY`: base64 encoding for a cipher key, run `go run ./cmd/keygen` to generate one.
 - `DOMAIN`: Hosting domain
 - `DATABASE_URL`: Turso database url
 - `DATABASE_AUTH_TOKEN`: Tursor database auth token
