@@ -1,12 +1,12 @@
 package main
 
-import(
+import (
 	"fmt"
 	"github.com/joho/godotenv"
-	"github.com/zvdv/ECSS-Lockers/internal/logger"
+	"github.com/zvdv/ECSS-Lockers/internal/database"
 	"github.com/zvdv/ECSS-Lockers/internal/email"
 	"github.com/zvdv/ECSS-Lockers/internal/env"
-	"github.com/zvdv/ECSS-Lockers/internal/database"
+	"github.com/zvdv/ECSS-Lockers/internal/logger"
 )
 
 func init() {
@@ -21,6 +21,10 @@ func init() {
 	email.Initialize()
 }
 
-func main() {
+func queryExpiring() {
 
+}
+
+func main() {
+	db, lock := database.Lock()
 }
