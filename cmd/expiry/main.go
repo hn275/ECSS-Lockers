@@ -1,8 +1,12 @@
 package main
 
 import(
+	"fmt"
+	"github.com/joho/godotenv"
+	"github.com/zvdv/ECSS-Lockers/internal/logger"
 	"github.com/zvdv/ECSS-Lockers/internal/email"
-
+	"github.com/zvdv/ECSS-Lockers/internal/env"
+	"github.com/zvdv/ECSS-Lockers/internal/database"
 )
 
 func init() {
@@ -18,5 +22,5 @@ func init() {
 }
 
 func main() {
-	
+
 }
