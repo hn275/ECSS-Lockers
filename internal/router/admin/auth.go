@@ -60,10 +60,51 @@ func Auth(w http.ResponseWriter, r *http.Request) {
 		Value:    token,
 		Secure:   true,
 		HttpOnly: true,
-		SameSite: http.SameSiteStrictMode,
+		Path:     "/",
 	})
 
 	w.Header().Add("HX-Redirect", "/admin")
+}
+
+func AdminTokenChecker(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		var (
+			tokenOK bool
+			err     error
+			cookie  *http.Cookie
+		)
+
+		cookie, err = r.Cookie("admin_token")
+		if err != nil {
+			goto endfunc
+		}
+
+		if err = cookie.Valid(); err != nil {
+			goto endfunc
+		}
+
+		tokenOK, err = parseToken(cookie.Value)
+		if err != nil {
+			goto endfunc
+		}
+
+	endfunc:
+		if err != nil || !tokenOK {
+			if err != nil {
+				logger.Error.Println(err)
+			}
+
+			httputil.WriteTemplatePage(w,
+				struct{ IsAdmin bool }{IsAdmin: true},
+				"templates/base.html",
+				"templates/auth/session_expired.html",
+				"templates/nav.html")
+
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }
 
 func makeToken() (string, error) {

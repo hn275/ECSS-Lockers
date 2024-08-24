@@ -66,7 +66,7 @@ func main() {
 	})
 
 	app.Route("/admin", func(r chi.Router) {
-		// r.Use() // admin token checker middleware
+		r.Use(admin.AdminTokenChecker)
 		r.Handle("/", http.HandlerFunc(admin.Home))
 		r.Handle("/registration", http.HandlerFunc(admin.Registrations))
 		r.Handle("/registration/export", http.HandlerFunc(admin.Export))
