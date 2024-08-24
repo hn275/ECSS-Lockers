@@ -65,10 +65,11 @@ func main() {
 		r.Handle("/api/locker", http.HandlerFunc(dash.ApiLocker))
 	})
 
-    app.Route("/admin", func(r chi.Router) {
-        // r.Use() // admin token checker middleware
-        r.Handle("/", http.HandlerFunc(admin.Home))
-    })
+	app.Route("/admin", func(r chi.Router) {
+		// r.Use() // admin token checker middleware
+		r.Handle("/", http.HandlerFunc(admin.Home))
+		r.Handle("/registration", http.HandlerFunc(admin.Registrations))
+	})
 
 	logger.Info.Printf("Listening at http://%s\n", addr)
 	logger.Info.Println("for local dev, use http://127.0.0.1:8080, for more information, see: https://stackoverflow.com/a/1188145/19114163")

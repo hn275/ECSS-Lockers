@@ -1,4 +1,12 @@
 {{define "content"}}
+<script>
+  document.addEventListener("htmx:afterRequest", function (event) {
+    if (event.detail.xhr.status === 204) {
+      const tr = event.target.closest("tr");
+      if (tr) tr.remove();
+    }
+  });
+</script>
 
 <h1 class="mt-10 mb-3 text-2xl text-center font-semibold">Registrations</h1>
 
@@ -18,24 +26,20 @@
 
     <tbody class="h-2 overflow-y-scroll">
       {{range $reg := .Registrations}}
-
-      <tr id="{{$reg.Locker}}">
-        <th class="text-primary">{{$reg.RowIndex}}</th>
-        <td>{{$reg.Locker}}</td>
-        <td>{{$reg.Name}}</td>
-        <td>{{$reg.Email}}</td>
-        <td>{{$reg.Expiry}}</td>
-        <!-- <td>{{$reg.EmailSent}}</td> -->
-        <td>
-          <button
-            class="btn btn-outline btn-error btn-sm"
-            hx-delete="/admin/registration"
-            value="{{$reg.Locker}}"
-            hx-swap="#{{$reg.Locker}}"
-          >
-            remove
-          </button>
-        </td>
+      <tr>
+        <form hx-delete="/admin/registration">
+          <th class="text-primary">{{$reg.RowIndex}}</th>
+          <td>{{$reg.Locker}}</td>
+          <td>{{$reg.Name}}</td>
+          <td>{{$reg.Email}}</td>
+          <td>{{$reg.Expiry}}</td>
+          <td>
+            <input type="hidden" name="locker" value="{{$reg.Locker}}" />
+            <button class="btn btn-outline btn-error btn-sm" type="submit">
+              remove
+            </button>
+          </td>
+        </form>
       </tr>
 
       {{end}}
