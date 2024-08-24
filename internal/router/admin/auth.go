@@ -79,14 +79,14 @@ func parseToken(token string) (bool, error) {
 	p := len(tokenBytes) - crypto.SignatureSize
 	ciphertext, digest := tokenBytes[:p], tokenBytes[p:]
 
-    pt, err := crypto.Decrypt(
-        crypto.CipherKey[:],
-        ciphertext,
-        []byte(adminUsername))
-    
-    if err != nil {
-        return false, err
-    }
+	pt, err := crypto.Decrypt(
+		crypto.CipherKey[:],
+		ciphertext,
+		[]byte(adminUsername))
 
-    return crypto.VerifySignature(crypto.SignatureKey[:], pt, digest)
+	if err != nil {
+		return false, err
+	}
+
+	return crypto.VerifySignature(crypto.SignatureKey[:], pt, digest)
 }
