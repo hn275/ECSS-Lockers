@@ -8,8 +8,7 @@
   });
 </script>
 
-
-<div class="overflow-x-auto h-[60vh] overflow-y-scroll">
+<div class="overflow-x-auto h-max max-h-[60vh] overflow-y-scroll">
   <table class="table table-zebra">
     <thead>
       <tr>
@@ -23,7 +22,6 @@
     </thead>
 
     <tbody class="h-2 overflow-y-scroll">
-
       {{range $reg := .Registrations}}
       <tr>
         <form hx-delete="/admin/registration">
@@ -41,7 +39,6 @@
         </form>
       </tr>
       {{end}}
-
     </tbody>
   </table>
 </div>
