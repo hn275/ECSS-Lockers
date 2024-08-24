@@ -44,7 +44,7 @@ func Registrations(w http.ResponseWriter, r *http.Request) {
 	}
 
 	rowsAff, err := result.RowsAffected()
-    logger.Trace.Printf("Deleted locker %s, result: %d row(s), err: %v\n", locker, rowsAff, err)
+	logger.Trace.Printf("Deleted locker %s, result: %d row(s), err: %v\n", locker, rowsAff, err)
 
 	status := http.StatusNoContent
 	if rowsAff == 0 {
