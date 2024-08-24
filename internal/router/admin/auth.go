@@ -46,7 +46,24 @@ func Auth(w http.ResponseWriter, r *http.Request) {
             `))
 		return
 	}
-	logger.Info.Println(username, password)
+
+	// admin authenticated!
+	token, err := makeToken()
+	if err != nil {
+		logger.Error.Println(err)
+		httputil.WriteResponse(w, http.StatusInternalServerError, nil)
+		return
+	}
+
+	http.SetCookie(w, &http.Cookie{
+		Name:     "admin_token",
+		Value:    token,
+		Secure:   true,
+		HttpOnly: true,
+		SameSite: http.SameSiteStrictMode,
+	})
+
+	w.Header().Add("HX-Redirect", "/admin")
 }
 
 func makeToken() (string, error) {

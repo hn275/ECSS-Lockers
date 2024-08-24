@@ -58,7 +58,7 @@ func main() {
 	})
 
 	app.Route("/dash", func(r chi.Router) {
-		app.Use(auth.CRSFMiddleware)
+		r.Use(auth.CRSFMiddleware)
 		r.Use(auth.AuthenticatedUserOnly)
 		r.Handle("/", http.HandlerFunc(dash.Dash))
 		r.Handle("/locker/register", http.HandlerFunc(dash.DashLockerRegister))
