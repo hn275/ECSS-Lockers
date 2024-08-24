@@ -5,9 +5,9 @@
 - [ ] Cache static asset (middleware?)
 - [x] Auth token invalidating
 - [x] CSFR middleware
-- [ ] Admin routes
+- [x] Admin routes
   - CSFR middleware will be applied to all routes (other than auth of course)
-  - [ ] Middleware admin token checker
+  - [x] Middleware admin token checker
   - [x] Auth: `PUT /auth/admin`
     - Sends user name and password via url form to authenticate
     - Redirects to `/admin` on success with cookies set
