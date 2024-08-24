@@ -32,7 +32,8 @@ func Home(w http.ResponseWriter, r *http.Request) {
 		w,
 		data,
 		"templates/nav.html",
-		"templates/admin/index.html")
+		"templates/admin/index.html",
+		"templates/admin/lockertable.html")
 }
 
 type registration struct {
