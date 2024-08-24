@@ -16,7 +16,10 @@ func Home(w http.ResponseWriter, r *http.Request) {
 	data := struct {
 		HasData       bool
 		Registrations []registration
-	}{}
+		Term          string
+	}{
+		Term: time.GetCurrentTerm().Format("200601"),
+	}
 
 	var err error
 	data.Registrations, err = queryAllRegistrations()
@@ -37,13 +40,14 @@ func Home(w http.ResponseWriter, r *http.Request) {
 }
 
 type registration struct {
-	ID        string
-	RowIndex  uint16
-	Locker    string
-	Name      string
-	Email     string
-	Expiry    string
-	EmailSent bool
+	ID         string
+	RowIndex   uint16
+	Locker     string
+	Name       string
+	Email      string
+	Expiry     string
+	ExpiryTime stdtime.Time
+	EmailSent  bool
 }
 
 func queryAllRegistrations() ([]registration, error) {
@@ -66,7 +70,6 @@ func queryAllRegistrations() ([]registration, error) {
 	lockers := make([]registration, 0, 200)
 	rowIndex := uint16(1)
 
-	var expiredAt stdtime.Time
 	for ; rows.Next(); rowIndex++ {
 		reg := registration{
 			RowIndex: rowIndex,
@@ -74,13 +77,13 @@ func queryAllRegistrations() ([]registration, error) {
 
 		err := rows.Scan(
 			&reg.Locker, &reg.Email, &reg.Name,
-			&expiredAt, &reg.EmailSent)
+			&reg.ExpiryTime, &reg.EmailSent)
 
 		if err != nil {
 			return nil, err
 		}
 
-		reg.Expiry = expiredAt.Format(time.TimeFormatLayout)
+		reg.Expiry = reg.ExpiryTime.Format(time.TimeFormatLayout)
 
 		// generate an id, for UI only
 		idHash := blake3.New(16, nil)

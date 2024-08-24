@@ -69,6 +69,7 @@ func main() {
 		// r.Use() // admin token checker middleware
 		r.Handle("/", http.HandlerFunc(admin.Home))
 		r.Handle("/registration", http.HandlerFunc(admin.Registrations))
+		r.Handle("/registration/export", http.HandlerFunc(admin.Export))
 	})
 
 	logger.Info.Printf("Listening at http://%s\n", addr)

@@ -16,6 +16,5 @@
       - Each cell has a form button to `DELETE /admin/api/registration`
   - [x] Remove registration: `DELETE /admin/registration`
     - Form data `locker` should be sent, containing the locker ID (ie, `ELW 120`).
-  - [ ] Export: `GET /admin/api/export`
-    - Empty body
+  - [x] Export: `GET /admin/api/export`
     - Exports the current `registration` table into a csv file, then self-email
