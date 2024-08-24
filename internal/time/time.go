@@ -6,9 +6,9 @@ import (
 	"github.com/zvdv/ECSS-Lockers/internal/logger"
 )
 
-var (
-	loc *stdtime.Location
-)
+var loc *stdtime.Location
+
+const TimeFormatLayout string = "Jan 2, 2006 at 3:04pm"
 
 func init() {
 	var err error
