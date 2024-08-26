@@ -52,8 +52,7 @@ func AuthApiLogin(w http.ResponseWriter, r *http.Request) {
 	msg.SetHeader("Subject", "Locker registration")
 	msg.SetBody("text/html", fmt.Sprintf(emailtemplate,
 		internal.Domain,
-		tok,
-		email.HostEmail))
+		tok))
 
 	if err := email.Send(msg); err != nil {
 		panic(err)
@@ -69,15 +68,15 @@ func AuthApiLogin(w http.ResponseWriter, r *http.Request) {
 const emailtemplate string = `Hello!
 <br />
 <br />
-You recently requested to sign in to Locker Registration. Click the link below to access your account:
+You recently requested to sign in to UVic's ECSS Locker Registration. Click the link below to access your account:
 <br />
 <br />
-<a href="%sauth?token=%s">Sign In to Locker</a>
+<a href="%sauth?token=%s">Sign In to Locker Registration</a>
 <br />
 <br />
 This link will expire in 15 minutes. If you did not request this sign-in, please ignore this email.
 <br />
-If you need any help, our support team is here for you at <a href="mailto:%s">support</a>.
+If you need any help, please contact the ECSS <a href="mailto:dirit@uvicecss.ca">Director of IT</a>.
 <br />
 <br />
 Best regards,
