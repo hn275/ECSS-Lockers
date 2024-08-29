@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/joho/godotenv"
 	"github.com/zvdv/ECSS-Lockers/internal/database"
 	"github.com/zvdv/ECSS-Lockers/internal/email"
@@ -21,10 +22,10 @@ func init() {
 	email.Initialize()
 }
 
-func queryExpiring() {
+// func queryExpiring() {
 
-}
+// }
 
 func main() {
-	db, lock := database.Lock()
+	//db, lock := database.Lock()
 }

@@ -7,6 +7,7 @@ import (
 	"github.com/zvdv/ECSS-Lockers/internal"
 	"github.com/zvdv/ECSS-Lockers/internal/crypto"
 	"github.com/zvdv/ECSS-Lockers/internal/email"
+	"github.com/zvdv/ECSS-Lockers/internal/env"
 	"github.com/zvdv/ECSS-Lockers/internal/httputil"
 	"github.com/zvdv/ECSS-Lockers/internal/logger"
 	"github.com/zvdv/ECSS-Lockers/internal/time"
@@ -52,7 +53,8 @@ func AuthApiLogin(w http.ResponseWriter, r *http.Request) {
 	msg.SetHeader("Subject", "Locker registration")
 	msg.SetBody("text/html", fmt.Sprintf(emailtemplate,
 		internal.Domain,
-		tok))
+		tok,
+		env.Env("SUPPORT_EMAIL")))
 
 	if err := email.Send(msg); err != nil {
 		panic(err)
@@ -76,7 +78,7 @@ You recently requested to sign in to UVic's ECSS Locker Registration. Click the 
 <br />
 This link will expire in 15 minutes. If you did not request this sign-in, please ignore this email.
 <br />
-If you need any help, please contact the ECSS <a href="mailto:dirit@uvicecss.ca">Director of IT</a>.
+If you need any help, please contact the ECSS <a href="mailto:%s">Director of IT</a>.
 <br />
 <br />
 Best regards,
