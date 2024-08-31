@@ -121,7 +121,16 @@ func AuthApiToken(w http.ResponseWriter, r *http.Request) {
 	// token expired?
 	now := uint64(time.Now().Unix())
 	if now-ts >= tokenExpireLimit { // token expires in 15 mins
-		httputil.WriteResponse(w, http.StatusOK, []byte("token exired"))
+		httputil.WriteResponse(w, http.StatusOK, []byte(`
+            <div class="flex flex-col justify-content items-center">
+            	<span class="text-primary text-xl font-semibold">
+		            token expired
+            	</span>
+                <a href="/" class="link text-sm">
+                	Sign in again
+                </a>
+            </div>
+            `))
 		return
 	}
 
